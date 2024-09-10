@@ -4,13 +4,13 @@ import java.util.List;
 
 public class WeatherData {
 
-    private String wind_cdir;
+    private String wind_cdir; //+
     private int rh;
     private String pod;
     private double lon;
     private double pres;
-    private String timezone;
-    private String ob_time;
+    private String timezone; //+
+    private String ob_time; //+
     private String country_code;
     private int clouds;
     private double vis;

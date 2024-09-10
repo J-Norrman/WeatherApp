@@ -6,7 +6,6 @@ import java.util.List;
 
 public class WeatherResponse implements ApiResponse{
     private int count;
-
     private List<WeatherData> data;
 
     public int getCount() {

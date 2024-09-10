@@ -3,10 +3,9 @@ package com.j_norrman.weatherapp.controller;
 import com.j_norrman.weatherapp.model.ApiResponse;
 import com.j_norrman.weatherapp.model.ErrorResponse;
 import com.j_norrman.weatherapp.model.ForecastResponse;
-import com.j_norrman.weatherapp.model.WeatherResponse;
+import com.j_norrman.weatherapp.service.ForecastService;
 import com.j_norrman.weatherapp.service.WeatherService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,17 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
-@RequestMapping("/weather")
-public class WeatherController {
-    private final WeatherService weatherService;
-    public WeatherController(WeatherService weatherService) {
-        this.weatherService = weatherService;
+@RequestMapping("/forecast")
+public class ForecastController {
+    private final ForecastService forecastService;
+
+    public ForecastController(ForecastService forecastService) {
+        this.forecastService = forecastService;
     }
+
     @GetMapping
-    public ResponseEntity<ApiResponse> getWeather(@RequestParam String city) {
+    public ResponseEntity<ApiResponse> getForecast(@RequestParam String city) {
         try {
-            WeatherResponse weatherResponse = weatherService.getCurrentWeather(city);
-            return ResponseEntity.ok(weatherResponse);
+            ForecastResponse forecastResponse = forecastService.getForecast(city);
+            return ResponseEntity.ok(forecastResponse);
         } catch (HttpClientErrorException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ErrorResponse("Invalid city name or API request failed", HttpStatus.BAD_REQUEST.value()));
@@ -34,5 +35,4 @@ public class WeatherController {
                     .body(new ErrorResponse("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
     }
-
 }
