@@ -2,9 +2,9 @@ package com.j_norrman.weatherapp.controller;
 
 import com.j_norrman.weatherapp.model.ApiResponse;
 import com.j_norrman.weatherapp.model.ErrorResponse;
-import com.j_norrman.weatherapp.model.ForecastResponse;
+import com.j_norrman.weatherapp.model.forecast.ForecastResponse;
+import com.j_norrman.weatherapp.model.forecast.ForecastResponseDTO;
 import com.j_norrman.weatherapp.service.ForecastService;
-import com.j_norrman.weatherapp.service.WeatherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public class ForecastController {
     @GetMapping
     public ResponseEntity<ApiResponse> getForecast(@RequestParam String city) {
         try {
-            ForecastResponse forecastResponse = forecastService.getForecast(city);
+            ForecastResponseDTO forecastResponse = forecastService.getForecast(city);
             return ResponseEntity.ok(forecastResponse);
         } catch (HttpClientErrorException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

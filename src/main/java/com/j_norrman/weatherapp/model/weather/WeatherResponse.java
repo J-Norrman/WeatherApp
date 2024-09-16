@@ -1,10 +1,10 @@
-package com.j_norrman.weatherapp.model;
+package com.j_norrman.weatherapp.model.weather;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.j_norrman.weatherapp.model.ApiResponse;
 
 import java.util.List;
 
-public class WeatherResponse implements ApiResponse{
+public class WeatherResponse implements ApiResponse {
     private int count;
     private List<WeatherData> data;
 

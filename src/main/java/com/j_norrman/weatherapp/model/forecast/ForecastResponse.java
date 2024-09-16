@@ -1,6 +1,7 @@
-package com.j_norrman.weatherapp.model;
+package com.j_norrman.weatherapp.model.forecast;
 
-import java.io.Serializable;
+import com.j_norrman.weatherapp.model.ApiResponse;
+
 import java.util.List;
 
 public class ForecastResponse implements ApiResponse {

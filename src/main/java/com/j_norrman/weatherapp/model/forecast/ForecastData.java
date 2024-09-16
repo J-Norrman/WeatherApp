@@ -1,8 +1,7 @@
-package com.j_norrman.weatherapp.model;
+package com.j_norrman.weatherapp.model.forecast;
 
 public class ForecastData {
-    private String timestamp_local;
-    private String timestamp_utc;
+    private String valid_date;
     private long ts;
     private String datetime;
     private double wind_gust_spd;
@@ -11,7 +10,12 @@ public class ForecastData {
     private String wind_cdir;
     private String wind_cdir_full;
     private double temp;
-    private double app_temp;
+    private double max_temp;
+    private double min_temp;
+    private double high_temp;
+    private double low_temp;
+    private double app_max_temp;
+    private double app_min_temp;
     private int pop;
     private double precip;
     private double snow;
@@ -20,34 +24,27 @@ public class ForecastData {
     private double pres;
     private double dewpt;
     private double rh;
-    private ForecastDescription weather;
-    private String pod;
+    private ForecastDescription weather;  // Assuming WeatherDescription is another class you've defined
     private int clouds_low;
     private int clouds_mid;
     private int clouds_hi;
     private int clouds;
     private double vis;
-    private double dhi;
-    private double dni;
-    private double ghi;
-    private double solar_rad;
-    private double uv;
-    private double ozone;
+    private double max_dhi;
+    private int uv;
+    private double moon_phase;
+    private double moon_phase_lunation;
+    private long moonrise_ts;
+    private long moonset_ts;
+    private long sunrise_ts;
+    private long sunset_ts;
 
-    public String getTimestamp_local() {
-        return timestamp_local;
+    public String getValid_date() {
+        return valid_date;
     }
 
-    public void setTimestamp_local(String timestamp_local) {
-        this.timestamp_local = timestamp_local;
-    }
-
-    public String getTimestamp_utc() {
-        return timestamp_utc;
-    }
-
-    public void setTimestamp_utc(String timestamp_utc) {
-        this.timestamp_utc = timestamp_utc;
+    public void setValid_date(String valid_date) {
+        this.valid_date = valid_date;
     }
 
     public long getTs() {
@@ -114,12 +111,52 @@ public class ForecastData {
         this.temp = temp;
     }
 
-    public double getApp_temp() {
-        return app_temp;
+    public double getMax_temp() {
+        return max_temp;
     }
 
-    public void setApp_temp(double app_temp) {
-        this.app_temp = app_temp;
+    public void setMax_temp(double max_temp) {
+        this.max_temp = max_temp;
+    }
+
+    public double getMin_temp() {
+        return min_temp;
+    }
+
+    public void setMin_temp(double min_temp) {
+        this.min_temp = min_temp;
+    }
+
+    public double getHigh_temp() {
+        return high_temp;
+    }
+
+    public void setHigh_temp(double high_temp) {
+        this.high_temp = high_temp;
+    }
+
+    public double getLow_temp() {
+        return low_temp;
+    }
+
+    public void setLow_temp(double low_temp) {
+        this.low_temp = low_temp;
+    }
+
+    public double getApp_max_temp() {
+        return app_max_temp;
+    }
+
+    public void setApp_max_temp(double app_max_temp) {
+        this.app_max_temp = app_max_temp;
+    }
+
+    public double getApp_min_temp() {
+        return app_min_temp;
+    }
+
+    public void setApp_min_temp(double app_min_temp) {
+        this.app_min_temp = app_min_temp;
     }
 
     public int getPop() {
@@ -194,14 +231,6 @@ public class ForecastData {
         this.weather = weather;
     }
 
-    public String getPod() {
-        return pod;
-    }
-
-    public void setPod(String pod) {
-        this.pod = pod;
-    }
-
     public int getClouds_low() {
         return clouds_low;
     }
@@ -242,51 +271,67 @@ public class ForecastData {
         this.vis = vis;
     }
 
-    public double getDhi() {
-        return dhi;
+    public double getMax_dhi() {
+        return max_dhi;
     }
 
-    public void setDhi(double dhi) {
-        this.dhi = dhi;
+    public void setMax_dhi(double max_dhi) {
+        this.max_dhi = max_dhi;
     }
 
-    public double getDni() {
-        return dni;
-    }
-
-    public void setDni(double dni) {
-        this.dni = dni;
-    }
-
-    public double getGhi() {
-        return ghi;
-    }
-
-    public void setGhi(double ghi) {
-        this.ghi = ghi;
-    }
-
-    public double getSolar_rad() {
-        return solar_rad;
-    }
-
-    public void setSolar_rad(double solar_rad) {
-        this.solar_rad = solar_rad;
-    }
-
-    public double getUv() {
+    public int getUv() {
         return uv;
     }
 
-    public void setUv(double uv) {
+    public void setUv(int uv) {
         this.uv = uv;
     }
 
-    public double getOzone() {
-        return ozone;
+    public double getMoon_phase() {
+        return moon_phase;
     }
 
-    public void setOzone(double ozone) {
-        this.ozone = ozone;
+    public void setMoon_phase(double moon_phase) {
+        this.moon_phase = moon_phase;
+    }
+
+    public double getMoon_phase_lunation() {
+        return moon_phase_lunation;
+    }
+
+    public void setMoon_phase_lunation(double moon_phase_lunation) {
+        this.moon_phase_lunation = moon_phase_lunation;
+    }
+
+    public long getMoonrise_ts() {
+        return moonrise_ts;
+    }
+
+    public void setMoonrise_ts(long moonrise_ts) {
+        this.moonrise_ts = moonrise_ts;
+    }
+
+    public long getMoonset_ts() {
+        return moonset_ts;
+    }
+
+    public void setMoonset_ts(long moonset_ts) {
+        this.moonset_ts = moonset_ts;
+    }
+
+    public long getSunrise_ts() {
+        return sunrise_ts;
+    }
+
+    public void setSunrise_ts(long sunrise_ts) {
+        this.sunrise_ts = sunrise_ts;
+    }
+
+    public long getSunset_ts() {
+        return sunset_ts;
+    }
+
+    public void setSunset_ts(long sunset_ts) {
+        this.sunset_ts = sunset_ts;
     }
 }

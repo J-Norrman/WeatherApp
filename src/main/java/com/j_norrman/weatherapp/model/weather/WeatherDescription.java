@@ -1,4 +1,4 @@
-package com.j_norrman.weatherapp.model;
+package com.j_norrman.weatherapp.model.weather;
 
 public class WeatherDescription {
     private String icon;

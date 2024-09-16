@@ -2,11 +2,9 @@ package com.j_norrman.weatherapp.controller;
 
 import com.j_norrman.weatherapp.model.ApiResponse;
 import com.j_norrman.weatherapp.model.ErrorResponse;
-import com.j_norrman.weatherapp.model.ForecastResponse;
-import com.j_norrman.weatherapp.model.WeatherResponse;
+import com.j_norrman.weatherapp.model.weather.WeatherResponse;
 import com.j_norrman.weatherapp.service.WeatherService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
