@@ -2,7 +2,6 @@ package com.j_norrman.weatherapp.controller;
 
 import com.j_norrman.weatherapp.model.ApiResponse;
 import com.j_norrman.weatherapp.model.ErrorResponse;
-import com.j_norrman.weatherapp.model.forecast.ForecastResponse;
 import com.j_norrman.weatherapp.model.forecast.ForecastResponseDTO;
 import com.j_norrman.weatherapp.service.ForecastService;
 import org.springframework.http.HttpStatus;

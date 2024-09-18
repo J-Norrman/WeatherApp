@@ -24,7 +24,7 @@ public class ForecastData {
     private double pres;
     private double dewpt;
     private double rh;
-    private ForecastDescription weather;  // Assuming WeatherDescription is another class you've defined
+    private ForecastDescription weather;
     private int clouds_low;
     private int clouds_mid;
     private int clouds_hi;

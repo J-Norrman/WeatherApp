@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ForecastResponseDTO implements ApiResponse {
     private String city_name;
-    private List<DailyForecastDTO> forecasts; // List of daily forecasts
+    private List<DailyForecastDTO> forecasts;
 
     public ForecastResponseDTO() {}
 

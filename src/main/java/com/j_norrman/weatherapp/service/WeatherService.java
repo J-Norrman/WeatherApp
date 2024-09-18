@@ -1,9 +1,13 @@
 package com.j_norrman.weatherapp.service;
 
+import com.j_norrman.weatherapp.model.weather.WeatherData;
+import com.j_norrman.weatherapp.model.weather.WeatherDataDTO;
 import com.j_norrman.weatherapp.model.weather.WeatherResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 public class WeatherService {
@@ -12,10 +16,51 @@ public class WeatherService {
     @Value("${apiURL}")
     private String API_URL;
 
-    public WeatherResponse getCurrentWeather(String city) {
-        RestTemplate restTemplate = new RestTemplate();
+    private final WebClient webClient;
+
+    public WeatherService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl(API_URL).build();
+    }
+
+    public Mono<WeatherResponse> getCurrentWeather(String city) {
         String url = API_URL.replace("{city}", city).replace("{key}", API_KEY);
 
-        return restTemplate.getForObject(url, WeatherResponse.class);
+        return webClient.get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(WeatherResponse.class);  // returns the reactive Mono object
+    }
+
+    // Map WeatherResponse to WeatherDataDTO
+    public Mono<WeatherDataDTO> getWeatherData(String city) {
+        // Call the getCurrentWeather method and map the first element of the data list
+        return getCurrentWeather(city).flatMap(weatherResponse -> {
+            if (weatherResponse.getData() != null && !weatherResponse.getData().isEmpty()) {
+                WeatherData weatherData = weatherResponse.getData().get(0); // Get the first data entry
+
+                // Map fields from WeatherData to WeatherDataDTO
+                WeatherDataDTO weatherDataDTO = new WeatherDataDTO(
+                        weatherData.getCity_name(),
+                        weatherData.getDatetime(),
+                        weatherData.getTemp(),
+                        weatherData.getWind_spd(),
+                        weatherData.getWind_cdir_full(),
+                        weatherData.getSunrise(),
+                        weatherData.getSunset(),
+                        weatherData.getPrecip()
+                );
+
+                return Mono.just(weatherDataDTO);
+            } else {
+                return Mono.error(new RuntimeException("No weather data available"));
+            }
+        });
     }
 }
+//    public WeatherResponse getCurrentWeather(String city) {
+//        RestTemplate restTemplate = new RestTemplate();
+//        String url = API_URL.replace("{city}", city).replace("{key}", API_KEY);
+//
+//        return restTemplate.getForObject(url, WeatherResponse.class);
+//    }
+//}

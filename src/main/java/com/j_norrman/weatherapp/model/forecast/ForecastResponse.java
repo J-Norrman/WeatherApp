@@ -1,10 +1,7 @@
 package com.j_norrman.weatherapp.model.forecast;
-
-import com.j_norrman.weatherapp.model.ApiResponse;
-
 import java.util.List;
 
-public class ForecastResponse implements ApiResponse {
+public class ForecastResponse {
     private List<ForecastData> data;
     private String city_name;
     private String lon;
