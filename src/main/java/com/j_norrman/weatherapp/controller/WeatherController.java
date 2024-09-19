@@ -1,6 +1,8 @@
 package com.j_norrman.weatherapp.controller;
 
-import com.j_norrman.weatherapp.model.ErrorResponse;
+import com.j_norrman.weatherapp.exception.ErrorResponse;
+import com.j_norrman.weatherapp.exception.ResourceNotFoundException;
+import com.j_norrman.weatherapp.model.ApiResponse;
 import com.j_norrman.weatherapp.model.weather.WeatherDataDTO;
 import com.j_norrman.weatherapp.service.WeatherService;
 import org.springframework.http.HttpStatus;
@@ -27,20 +29,6 @@ public class WeatherController {
     @GetMapping
     public Mono<ResponseEntity<WeatherDataDTO>> getWeather(@RequestParam String city) {
         return weatherService.getWeatherData(city)
-                .map(ResponseEntity::ok)
-                .onErrorResume(e -> {
-                    ErrorResponse errorResponse;
-                    HttpStatusCode status;
-
-                    if (e instanceof WebClientResponseException webClientException) {
-                        status = webClientException.getStatusCode();
-                        errorResponse = new ErrorResponse("Invalid city name or API request failed", status.value());
-                    } else {
-                        status = HttpStatus.INTERNAL_SERVER_ERROR;
-                        errorResponse = new ErrorResponse("An unexpected error occurred", status.value());
-                    }
-
-                    return Mono.error((Supplier<? extends Throwable>) errorResponse);
-                });
+                .map(ResponseEntity::ok);
     }
     }
