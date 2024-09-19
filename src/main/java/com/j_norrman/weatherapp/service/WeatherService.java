@@ -28,17 +28,13 @@ public class WeatherService {
         return webClient.get()
                 .uri(url)
                 .retrieve()
-                .bodyToMono(WeatherResponse.class);  // returns the reactive Mono object
+                .bodyToMono(WeatherResponse.class);
     }
 
-    // Map WeatherResponse to WeatherDataDTO
     public Mono<WeatherDataDTO> getWeatherData(String city) {
-        // Call the getCurrentWeather method and map the first element of the data list
         return getCurrentWeather(city).flatMap(weatherResponse -> {
             if (weatherResponse.getData() != null && !weatherResponse.getData().isEmpty()) {
-                WeatherData weatherData = weatherResponse.getData().get(0); // Get the first data entry
-
-                // Map fields from WeatherData to WeatherDataDTO
+                WeatherData weatherData = weatherResponse.getData().get(0);
                 WeatherDataDTO weatherDataDTO = new WeatherDataDTO(
                         weatherData.getCity_name(),
                         weatherData.getDatetime(),
@@ -57,10 +53,4 @@ public class WeatherService {
         });
     }
 }
-//    public WeatherResponse getCurrentWeather(String city) {
-//        RestTemplate restTemplate = new RestTemplate();
-//        String url = API_URL.replace("{city}", city).replace("{key}", API_KEY);
-//
-//        return restTemplate.getForObject(url, WeatherResponse.class);
-//    }
-//}
+

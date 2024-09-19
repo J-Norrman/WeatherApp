@@ -27,7 +27,7 @@ public class WeatherController {
     @GetMapping
     public Mono<ResponseEntity<WeatherDataDTO>> getWeather(@RequestParam String city) {
         return weatherService.getWeatherData(city)
-                .map(ResponseEntity::ok)  // On success, wrap in ResponseEntity with 200 OK
+                .map(ResponseEntity::ok)
                 .onErrorResume(e -> {
                     ErrorResponse errorResponse;
                     HttpStatusCode status;
