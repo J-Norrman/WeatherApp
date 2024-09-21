@@ -4,6 +4,7 @@ import com.j_norrman.weatherapp.exception.ErrorResponse;
 import com.j_norrman.weatherapp.exception.ResourceNotFoundException;
 import com.j_norrman.weatherapp.model.ApiResponse;
 import com.j_norrman.weatherapp.model.weather.WeatherDataDTO;
+import com.j_norrman.weatherapp.service.SearchHistoryService;
 import com.j_norrman.weatherapp.service.WeatherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,18 +13,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 @RestController
 @RequestMapping("/weather")
 public class WeatherController {
     private final WeatherService weatherService;
+    private final SearchHistoryService searchHistoryService;
 
-    public WeatherController(WeatherService weatherService) {
+    public WeatherController(WeatherService weatherService, SearchHistoryService searchHistoryService) {
         this.weatherService = weatherService;
+        this.searchHistoryService = searchHistoryService;
     }
 
     @GetMapping
@@ -31,4 +34,9 @@ public class WeatherController {
         return weatherService.getWeatherData(city)
                 .map(ResponseEntity::ok);
     }
+    @GetMapping("/history")
+    public ResponseEntity<List<String>> getSearchHistory() {
+        List<String> history = searchHistoryService.getSearchHistory();
+        return ResponseEntity.ok(history);
     }
+}

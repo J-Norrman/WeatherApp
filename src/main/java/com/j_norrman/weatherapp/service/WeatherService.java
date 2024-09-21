@@ -3,6 +3,7 @@ package com.j_norrman.weatherapp.service;
 import com.j_norrman.weatherapp.model.weather.WeatherData;
 import com.j_norrman.weatherapp.model.weather.WeatherDataDTO;
 import com.j_norrman.weatherapp.model.weather.WeatherResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,12 +18,16 @@ public class WeatherService {
     private String API_URL;
 
     private final WebClient webClient;
+    private final SearchHistoryService searchHistoryService;
 
-    public WeatherService(WebClient.Builder webClientBuilder) {
+    @Autowired
+    public WeatherService(WebClient.Builder webClientBuilder, SearchHistoryService searchHistoryService) {
         this.webClient = webClientBuilder.baseUrl(API_URL).build();
+        this.searchHistoryService = searchHistoryService;
     }
 
     public Mono<WeatherResponse> getCurrentWeather(String city) {
+        searchHistoryService.addCityToHistory(city);
         String url = API_URL.replace("{city}", city).replace("{key}", API_KEY);
 
         return webClient.get()
