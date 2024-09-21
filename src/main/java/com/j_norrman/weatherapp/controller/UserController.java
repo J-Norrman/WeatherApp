@@ -1,14 +1,13 @@
 package com.j_norrman.weatherapp.controller;
 
 import com.j_norrman.weatherapp.model.user.User;
-import com.j_norrman.weatherapp.repository.UserRepository;
 import com.j_norrman.weatherapp.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -30,6 +29,9 @@ public class UserController {
         User savedUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
-
-
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.findUserById(id);
+        return ResponseEntity.ok(user);
+    }
 }

@@ -16,12 +16,31 @@ public class User {
     @ElementCollection
     private List<String> favourites = new ArrayList<>();
 
+    private String newUsername;
+    private String newPassword;
+
     public User() {
     }
     public User(String username, String password, List<String> favourites) {
         this.username = username;
         this.password = password;
         this.favourites = favourites;
+    }
+
+    public String getNewUsername() {
+        return newUsername;
+    }
+
+    public void setNewUsername(String newUsername) {
+        this.newUsername = newUsername;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getUsername() {
