@@ -4,6 +4,7 @@ import com.j_norrman.weatherapp.model.forecast.DailyForecastDTO;
 import com.j_norrman.weatherapp.model.forecast.ForecastData;
 import com.j_norrman.weatherapp.model.forecast.ForecastResponse;
 import com.j_norrman.weatherapp.model.forecast.ForecastResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,15 @@ public class ForecastService {
     @Value("${apiURLFC}")
     private String API_URLFC;
 
+    private final SearchHistoryService searchHistoryService;
+
+    @Autowired
+    public ForecastService(SearchHistoryService searchHistoryService) {
+        this.searchHistoryService = searchHistoryService;
+    }
+
     public ForecastResponseDTO getForecast(String city) {
+        searchHistoryService.addCityToHistory(city);
         RestTemplate restTemplate = new RestTemplate();
         String url = API_URLFC.replace("{city}", city).replace("{key}", API_KEY);
 
