@@ -25,9 +25,22 @@ public class UserService {
     public User createUser(User user) {
         return userRepository.save(user);
     }
-    public User findUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
     }
-
+    public User updateUser(Long id, User user) {
+        Optional<User> optionalUser = findUserById(id);
+        User tempUser = optionalUser.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        if (user.getUsername() != null) {
+            tempUser.setUsername(user.getUsername());
+        }
+        if (user.getPassword() != null) {
+            tempUser.setPassword(user.getPassword());
+        }
+        if (user.getFavourites() != null) {
+            tempUser.setFavourites(user.getFavourites());
+        }
+        return userRepository.save(tempUser);
+    }
 }
+

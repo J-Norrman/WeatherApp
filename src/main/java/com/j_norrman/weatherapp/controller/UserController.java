@@ -1,5 +1,6 @@
 package com.j_norrman.weatherapp.controller;
 
+import com.j_norrman.weatherapp.exception.ResourceNotFoundException;
 import com.j_norrman.weatherapp.model.user.User;
 import com.j_norrman.weatherapp.model.user.UserDTO;
 import com.j_norrman.weatherapp.service.UserService;
@@ -32,7 +33,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        User user = userService.findUserById(id);
+        User user = userService.findUserById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         return ResponseEntity.ok(convertToDto(user));
     }
 
@@ -40,6 +42,11 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.updateUser(id, user);
+        return ResponseEntity.ok(updatedUser);
     }
     private UserDTO convertToDto(User user) {
         return new UserDTO(
