@@ -2,15 +2,11 @@ package com.j_norrman.weatherapp.controller;
 
 import com.j_norrman.weatherapp.exception.ResourceNotFoundException;
 import com.j_norrman.weatherapp.model.user.User;
-import com.j_norrman.weatherapp.model.user.UserDTO;
 import com.j_norrman.weatherapp.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -23,19 +19,16 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getUsers() {
+    public ResponseEntity<List<User>> getUsers() {
         List<User> users = userService.getAllUsers();
-        List<UserDTO> userDTOs = users.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(userDTOs);
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.findUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        return ResponseEntity.ok(convertToDto(user));
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping
@@ -47,14 +40,6 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         User updatedUser = userService.updateUser(id, user);
         return ResponseEntity.ok(updatedUser);
-    }
-    private UserDTO convertToDto(User user) {
-        return new UserDTO(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getFavourites()
-        );
     }
 
 }
