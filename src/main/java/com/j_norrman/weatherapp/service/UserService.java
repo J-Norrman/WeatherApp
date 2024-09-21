@@ -42,5 +42,14 @@ public class UserService {
         }
         return userRepository.save(tempUser);
     }
+    public void deleteUser(Long id, User user) {
+        Optional<User> optionalUser = findUserById(id);
+        User tempUser = optionalUser.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        if (tempUser.getUsername().equals(user.getUsername()) && tempUser.getPassword().equals(user.getPassword())) {
+            userRepository.delete(tempUser);
+        } else {
+            throw new IllegalArgumentException("Username or password does not match");
+        }
+    }
 }
 
