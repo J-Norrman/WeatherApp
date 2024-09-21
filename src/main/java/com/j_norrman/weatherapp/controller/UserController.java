@@ -1,6 +1,7 @@
 package com.j_norrman.weatherapp.controller;
 
 import com.j_norrman.weatherapp.model.user.User;
+import com.j_norrman.weatherapp.model.user.UserDTO;
 import com.j_norrman.weatherapp.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -20,8 +22,18 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserDTO> userDTOs = users.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(userDTOs);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        User user = userService.findUserById(id);
+        return ResponseEntity.ok(convertToDto(user));
     }
 
     @PostMapping
@@ -29,9 +41,13 @@ public class UserController {
         User savedUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.findUserById(id);
-        return ResponseEntity.ok(user);
+    private UserDTO convertToDto(User user) {
+        return new UserDTO(
+                user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getFavourites()
+        );
     }
+
 }
