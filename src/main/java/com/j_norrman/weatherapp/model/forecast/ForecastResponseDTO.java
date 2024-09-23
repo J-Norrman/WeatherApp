@@ -1,8 +1,7 @@
 package com.j_norrman.weatherapp.model.forecast;
-import com.j_norrman.weatherapp.model.ApiResponse;
 import java.util.List;
 
-public class ForecastResponseDTO implements ApiResponse {
+public class ForecastResponseDTO {
     private String city_name;
     private List<DailyForecastDTO> forecasts;
 

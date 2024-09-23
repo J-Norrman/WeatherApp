@@ -1,8 +1,6 @@
 package com.j_norrman.weatherapp.exception;
 
-import com.j_norrman.weatherapp.model.ApiResponse;
-
-public class ErrorResponse implements ApiResponse {
+public class ErrorResponse  {
     private String message;
     private int status;
 
