@@ -1,5 +1,4 @@
 package com.j_norrman.weatherapp.model.weather;
-
 import com.j_norrman.weatherapp.model.ApiResponse;
 
 public class WeatherDataDTO implements ApiResponse {

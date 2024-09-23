@@ -1,5 +1,4 @@
 package com.j_norrman.weatherapp.service;
-
 import com.j_norrman.weatherapp.model.forecast.DailyForecastDTO;
 import com.j_norrman.weatherapp.model.forecast.ForecastData;
 import com.j_norrman.weatherapp.model.forecast.ForecastResponse;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

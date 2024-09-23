@@ -1,11 +1,8 @@
 package com.j_norrman.weatherapp.service;
-
 import com.j_norrman.weatherapp.exception.ResourceNotFoundException;
 import com.j_norrman.weatherapp.model.user.User;
 import com.j_norrman.weatherapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

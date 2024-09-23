@@ -1,13 +1,7 @@
 package com.j_norrman.weatherapp.controller;
-
-import com.j_norrman.weatherapp.exception.ErrorResponse;
-import com.j_norrman.weatherapp.exception.ResourceNotFoundException;
-import com.j_norrman.weatherapp.model.ApiResponse;
 import com.j_norrman.weatherapp.model.weather.WeatherDataDTO;
 import com.j_norrman.weatherapp.service.SearchHistoryService;
 import com.j_norrman.weatherapp.service.WeatherService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.function.Supplier;
+
 
 @RestController
 @RequestMapping("/weather")

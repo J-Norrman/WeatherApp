@@ -1,7 +1,5 @@
 package com.j_norrman.weatherapp.model.user;
-
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

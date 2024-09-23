@@ -1,5 +1,4 @@
 package com.j_norrman.weatherapp.model.weather;
-
 public class WeatherDescription {
     private String icon;
     private int code;

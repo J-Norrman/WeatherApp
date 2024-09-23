@@ -1,7 +1,5 @@
 package com.j_norrman.weatherapp.model.weather;
-
 import com.j_norrman.weatherapp.model.ApiResponse;
-
 import java.util.List;
 
 public class WeatherResponse implements ApiResponse {
