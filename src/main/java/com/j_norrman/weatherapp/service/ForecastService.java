@@ -49,6 +49,8 @@ public class ForecastService {
                     data.getMax_temp(),
                     data.getMin_temp(),
                     data.getWind_spd(),
+                    data.getPrecip(),
+                    data.getSnow(),
                     data.getWind_cdir_full(),
                     data.getValid_date(),
                     dayOfWeek

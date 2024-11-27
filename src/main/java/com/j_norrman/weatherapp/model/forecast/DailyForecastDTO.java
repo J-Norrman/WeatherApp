@@ -5,23 +5,42 @@ public class DailyForecastDTO {
     private double max_temp;
     private double min_temp;
     private double wind_spd;
+    private double precip;
+    private double snow;
     private String wind_cdir_full;
     private String valid_date;
     private String day_of_week; // Day of the week
 
     public DailyForecastDTO() {}
 
-    public DailyForecastDTO(double temp, double max_temp, double min_temp, double wind_spd, String wind_cdir_full, String valid_date, String day_of_week) {
+    public DailyForecastDTO(double temp, double max_temp, double min_temp, double wind_spd, double precip ,double snow,String wind_cdir_full, String valid_date, String day_of_week) {
         this.temp = temp;
         this.max_temp = max_temp;
         this.min_temp = min_temp;
         this.wind_spd = wind_spd;
+        this.precip = precip;
+        this.snow = snow;
         this.wind_cdir_full = wind_cdir_full;
         this.valid_date = valid_date;
         this.day_of_week = day_of_week;
     }
 
-    // Getters and setters
+    public double getSnow() {
+        return snow;
+    }
+
+    public void setSnow(double snow) {
+        this.snow = snow;
+    }
+
+    public double getPrecip() {
+        return precip;
+    }
+
+    public void setPrecip(double precip) {
+        this.precip = precip;
+    }
+
     public double getTemp() {
         return temp;
     }
