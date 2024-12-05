@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@Deprecated
 public class UserController {
 
     private final UserService userService;

@@ -5,6 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Deprecated
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
